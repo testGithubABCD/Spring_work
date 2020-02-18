@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HelloController {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
 	@GetMapping("/hello")
 	public String getHello() {
 		return "hello";
 	}
 
 	@PostMapping("/hello")
-	public String postRequest(@RequestParam("text1")String str, Model model) {
-		
-       List<Map<String,Object>> list;
-       list = jdbcTemplate.queryForList("select name from users where id = ?", 1);
-		
+	public String postRequest(@RequestParam("text1") String str, Model model) {
+
+		List<Map<String, Object>> list;
+		list = jdbcTemplate.queryForList("select name from users where id = ?", 1);
+
 		model.addAttribute("sample", list.toString());
 		return "helloResponse";
 	}
-	
+
 }
