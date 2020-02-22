@@ -18,9 +18,12 @@ public class HelloService {
 		int age = (Integer) map.get("age");
 
 		Employee employee = new Employee();
-		// TODO lambokがなぜかセッターを作らない、、
+
+		employee.setEmployeeId(employeeId);
+		employee.setEmployeeName(employeeName);
+		employee.setAge(age);
 		return employee;
-		
+
 	}
 
 }
