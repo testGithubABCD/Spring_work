@@ -6,9 +6,14 @@
 </head>
 <body>
 	<h1>Hello World</h1>
+	<!-- th:value て書くとcontrollerに値を渡せる -->
 	<form method="post" action="/hello">
-		好き な 文字 を 入力： <input type="text" name="text1"
-			th:value="${text1_value}" /> <input type="submit" value="クリック" />
+		好きな文字を入力：<input type="text" name="text1" th:value="${text1_value}" />
+		<input type="submit" value="クリック" />
+	</form>
+	<form method="post" action="/helloDB">
+		従業員IDを入力：<input type="number" name="text1" th:value="${text1_value}" />
+		<input type="submit" value="クリック" />
 	</form>
 </body>
 </html>

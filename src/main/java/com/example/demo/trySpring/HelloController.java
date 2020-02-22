@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HelloController {
 
+	private static final String selectQuery = "select id, name, age from users where id = ?";
+
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -23,13 +25,28 @@ public class HelloController {
 	}
 
 	@PostMapping("/hello")
-	public String postRequest(@RequestParam("text1") String str, Model model) {
+	public String postRequest(
+			// htmlのname要素と同じ指定で値が取れる
+			@RequestParam("text1") String str, Model model) {
+
+		// helloResponse画面にsampleとして値を渡せる
+		model.addAttribute("sample", str);
+		return "helloResponse";
+	}
+
+	@PostMapping("/helloDB")
+	public String postRequestDB(
+			// htmlのname要素と同じ指定で値が取れる
+			@RequestParam("text1") int id, Model model) {
 
 		List<Map<String, Object>> list;
-		list = jdbcTemplate.queryForList("select name from users where id = ?", 1);
+		list = jdbcTemplate.queryForList(selectQuery, id);
 
-		model.addAttribute("sample", list.toString());
-		return "helloResponse";
+		// helloResponse画面にsampleとして値を渡せる
+		model.addAttribute("id", list.get(0).get("id"));
+		model.addAttribute("name", list.get(0).get("name"));
+		model.addAttribute("age", list.get(0).get("age"));
+		return "helloResponseDB";
 	}
 
 }
