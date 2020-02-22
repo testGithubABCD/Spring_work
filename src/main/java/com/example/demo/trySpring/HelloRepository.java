@@ -12,9 +12,10 @@ public class HelloRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	private static final String selectQuery = "select id, name, age from users where id = ?";
+
 	public Map<String, Object> findOne(int id) {
-		String query = "Select * FROM employee WHERE employee_id = ?";
-		Map<String, Object> employee = jdbcTemplate.queryForMap(query, id);
+		Map<String, Object> employee = jdbcTemplate.queryForMap(selectQuery, id);
 		return employee;
 	}
 
